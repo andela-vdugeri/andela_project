@@ -1,0 +1,25 @@
+<div class="category_products">
+	 	<% if @product %>
+	 		<form method="post" action="/cart">
+	 			<table class="cat_prod">
+				<thead>
+				    <tr>
+				      <th>Item</th>
+				      <th>Quantity</th>
+				      <th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+				    <tr>
+				      <td><%=product.name%></td>
+				      <td><%=product.quantity%></td>
+				      <td><%=product.price%> Naira</td>
+				    </tr>
+				  	<input type="submit" value="Add to cart" class="carrot-flat-button">
+				</tbody>
+			</table>
+	 		</form>
+			<% else %>
+			<p><h2>Product not found</h2></p>
+	 	<%end%>
+	 </div>

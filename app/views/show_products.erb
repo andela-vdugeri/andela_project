@@ -1,0 +1,26 @@
+
+ <div class="category_products">
+	 	<% if @products.any? %>
+	 		<table class="cat_prod" id="table">
+				<thead>
+				    <tr>
+				      <th>Item</th>
+				      <th>Quantity</th>
+				      <th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+	 			<% @products.each do |product| %>
+				  
+				    <tr>
+				      <td><%=product.name%></td>
+				      <td><%=product.quantity%></td>
+				      <td><%=product.price%> Naira</td>
+				    </tr>
+				<% end %>
+				</tbody>
+			</table>
+			<% else %>
+			<p><h2> No products in this category</h2></p>
+	 	<%end%>
+	 </div>

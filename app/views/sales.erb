@@ -1,0 +1,14 @@
+
+
+
+<div id="wrapper">
+	<% if @products.any? %>
+		<% @products.each do |product| %>
+			<div class="item">
+				<span class="name"><%= product.name %></span>
+				<span class="price"><%= product.price %></span>
+			</div>
+			<span><a href="cart/product/<%=product.id%>">Add to cart</a></span>
+		<% end%>
+	<% end%>
+</div>

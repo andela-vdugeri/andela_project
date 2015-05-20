@@ -1,0 +1,10 @@
+
+
+<% if @user %>
+
+<p><%=@user.username%>
+<p><%= @user.password %>
+
+<% else %>
+	<p> User does not exist</p>
+<% end %>

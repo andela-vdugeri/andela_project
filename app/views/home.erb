@@ -1,0 +1,29 @@
+<form method="post" action="/product/:name">
+	<input type="text" placeholder= "search for items..." name="item_name">
+	 <button class="search">Search</button>
+
+
+	 <div id="products">
+	 	<% if @products.any? %>
+	 		<table>
+				<thead>
+				    <tr>
+				      <th>Item</th>
+				      <th>Quantity</th>
+				      <th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+	 			<% @products.each do |product| %>
+				  
+				    <tr>
+				      <td><%=product.name%></td>
+				      <td><%=product.quantity%></td>
+				      <td><%=product.price%> Naira</td>
+				    </tr>
+				<% end %>
+				</tbody>
+			</table>
+	 	<%end%>
+	 </div>
+</form>

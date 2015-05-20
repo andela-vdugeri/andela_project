@@ -1,0 +1,14 @@
+
+
+<h1> Categories</h1>
+
+<% if @categories.any? %>
+	<ul>
+		<% @categories.each do |category| %>
+			<li><a href="/categoris/<%=category.id%>"><%=category.name%></li>
+		<%end%>
+	</ul>
+	<% else %>
+	<p> No categories added </p>
+	<p><a href="/categories/new">Add new Category</a></p>
+<% end%>

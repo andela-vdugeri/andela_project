@@ -1,0 +1,12 @@
+<a href="/products/new">Add New item</a>
+
+<% if @products.any? %>
+
+	<ul>
+	<% @products.each do |product| %>
+		<li><a href = "/products/<%=product.id%>"><%=product.name%></a></li>
+	<%end %>
+	</ul>
+	<%else%>
+		<p>No items added yet</p>
+	<%end%>

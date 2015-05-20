@@ -1,0 +1,13 @@
+
+<input type="text" name="name" placeholder="name">
+<input type="text" name="price" placeholder="price">
+<input type="text" name="quantity" placeholder="quantity">
+<% if @categories.any? %>
+<select name="category_id">
+<option>--select category --</option>
+	<% @categories.each do |category| %>
+	<option value="<%=category.id%>"><%=category.name%></option>
+	<% end %>
+</select>
+<% end %>
+<input type="submit" value="Add">

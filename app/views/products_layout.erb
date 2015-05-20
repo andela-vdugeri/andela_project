@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Merchant app</title>
+	<link rel="stylesheet" type="text/css" href="/prod_styles.css">
+	<!-- DataTables CSS -->
+	<link rel="stylesheet" type="text/css" href="/DataTables-1.10.7/media/css/jquery.dataTables.css">
+	  
+	<!-- jQuery -->
+	<script type="text/javascript" charset="utf8" src="/DataTables-1.10.7/media/js/jquery.js"></script>
+	  
+	<!-- DataTables -->
+	<script type="text/javascript" charset="utf8" src="/DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
+
+	<link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/jqueryui/dataTables.jqueryui.css"/>
+
+	<script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.10.7/integration/jqueryui/dataTables.jqueryui.js"></script>
+
+</head>
+<body>
+	<nav>
+		<ul id="menu">
+		    <li><a href="/home">Home</a></li>
+		    <li>
+		        <a href="#">Categories</a>
+		        <ul>
+		         <li><a href="/categories/new">New category</a></li>
+		        <% if @categories.any? %>
+		        	<% @categories.each do |category|%>
+		            	<li><a href="/categories/<%=category.id%>/products"><%=category.name%></a></li>
+		            <% end %>
+		        <% end %>
+		        </ul>
+		    </li>
+		    <li><a href="/sales">Sales</a></li>
+		    <li><a href="/products/new">New Item</a></li>
+		    <li><a href="#">Contact</a></li>
+		    <li><a href="#">Logout</a></li>
+		</ul>
+	</nav>
+	<section>
+		<div id="wrapper">
+			<%= yield %>
+		</div>
+	</section>
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#table').dataTable();
+        });
+    </script
+</body>
+</html>
