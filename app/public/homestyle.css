@@ -1,0 +1,8 @@
+#login_page{
+	background: url("/images/fruits.jpg");
+	background-repeat: none;
+	background-size: cover;
+	width: 1400px;
+	height: 800px;
+	margin: 0 auto;
+}

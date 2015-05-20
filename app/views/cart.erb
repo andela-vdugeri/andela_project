@@ -1,15 +1,21 @@
 
 <div class="category_products">
 	<% if @products.any? %>
-		
-			<% @products.each do |product| %>
-				<a href="/cart/product/<%=product.id%>">
-				<div class="sale_product">
-					<span class="product_details"><%=product.name%></span>
-					<span class="product_details">Price: <%=product.price%></span>
-					Add to cart
-				</div>
-				</a>
-			<%end%>
-	<%end%>
+	<table id="table">
+		<thead>
+			<th>Item Name</th>
+			<th>Item Price</th>
+		</thead>
+		<% @products.each do |product| %>
+			<tr>
+				<td><%=product.name%></td>
+				<td><%=product.price%></td>
+			</tr>
+		<% end%>
+		</table>
+		<div id="cart">
+			
+		</div>
+		<input type="submit" id="button" value="Checkout">
+	<% end%>
 </div>

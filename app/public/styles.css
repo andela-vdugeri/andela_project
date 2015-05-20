@@ -421,3 +421,11 @@ tfoot tr th:last-child {
   display: block;
   margin: 20px 10px 10px 20px;
 }
+#cart{
+  width: 400px;
+  height: 400px;
+  position: relative;
+  top: 10px;
+  left: 120px;
+  background: white;
+}

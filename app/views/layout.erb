@@ -5,12 +5,17 @@
 	<link rel="stylesheet" type="text/css" href="/styles.css">
 	<!-- DataTables CSS -->
 	<link rel="stylesheet" type="text/css" href="/DataTables-1.10.7/media/css/jquery.dataTables.css">
+	<link rel="stylesheet" type="text/css" href="/dataTables.jqueryui.css">
+	
 	  
 	<!-- jQuery -->
 	<script type="text/javascript" charset="utf8" src="/DataTables-1.10.7/media/js/jquery.js"></script>
 	  
 	<!-- DataTables -->
 	<script type="text/javascript" charset="utf8" src="/DataTables-1.10.7/media/js/jquery.dataTables.js"></script>
+
+	<script type="text/javascript" charset="utf8" src="/js/dataTables.jqueryui.js"></script>
+
 
  
 </head>
@@ -43,9 +48,28 @@
 
 
     <script type="text/javascript">
-        $(document).ready(function(){
-            $('#table').dataTable();
-        });
+       $(document).ready(function() {
+       	var rowset = [];
+       	cart = [];
+		    var table = $('#table').DataTable();
+		 
+		    $('#table tbody').on( 'click', 'tr', function () {
+		           rowData = table.row(this).data();
+		            $(this).addClass('selected');
+		        	//alert(rowData);
+		        	rowset = rowData.toString().split(",");
+		        	rowset.push(1);
+		        		item = {name: rowset[0], price: rowset[1] }
+		        		cart.push(item);
+		        		localStorage.setIem('cart', cart);
+		        		alert(localStorage.getItem(cart))
+					} );
+					//
+		 		
+		    $('#button').click( function () {
+		        table.row('.selected').remove().draw( false );
+		    } );
+		} );
     </script
 </body>
 </html>
