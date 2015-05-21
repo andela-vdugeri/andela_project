@@ -429,3 +429,21 @@ tfoot tr th:last-child {
   left: 120px;
   background: white;
 }
+
+#wrapper{
+  width: 800px;
+}
+
+.category_box{
+  width: 350px;
+  height: 250px;
+  border: 2px solid white;
+  border-radius: 5px;
+  float: left;
+  margin: 0 5px 5px 5px;
+}
+
+#categories{
+  width: 800px;
+  margin: 0 300px;
+}

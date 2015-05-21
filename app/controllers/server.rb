@@ -17,6 +17,22 @@ class Server < Sinatra::Base
 		end
 	end
 
+	post '/user/new' do
+		username = params[:username]
+		password = params[:password]
+		User.create({:username => username, :password => password})
+
+		erb :login, :layout => :home_layout
+	end
+
+	get '/home' do
+		halt(401, 'not authorized') unless session[:admin]
+		@products = Product.all
+		@categories = Category.all
+		erb :home
+	end
+
+
 	get '/products/new' do
 		halt(401, 'not authorized') unless session[:admin]
 		@product = Product.new
@@ -38,6 +54,19 @@ class Server < Sinatra::Base
 		erb :show_product
 	end
 
+
+	post '/products' do
+		halt(401, 'not authorized') unless session[:admin]
+		product = Product.new
+		product.name = params[:name]
+		product.price = params[:price]
+		product.quantity = params[:quantity]
+		product.category_id = params[:category_id]
+		product.save
+		redirect to("/products/#{product.id}")
+	end
+
+
 	post '/categories/create' do
 		halt(401, 'not authorized') unless session[:admin]
 		Category.create({:name => params[:category]})
@@ -46,6 +75,7 @@ class Server < Sinatra::Base
 		@products = Product.all
 		erb :home
 	end
+
 
 	get '/categories/new' do
 		halt(401, 'not authorized') unless session[:admin]
@@ -61,30 +91,7 @@ class Server < Sinatra::Base
 
 	end
 
-
-
-
-	get '/home' do
-		halt(401, 'not authorized') unless session[:admin]
-		@products = Product.all
-		@categories = Category.all
-		erb :home
-	end
-
-
-	post '/products' do
-		halt(401, 'not authorized') unless session[:admin]
-		product = Product.new
-		product.name = params[:name]
-		product.price = params[:price]
-		product.quantity = params[:quantity]
-		product.category_id = params[:category_id]
-		product.save
-		redirect to("/products/#{product.id}")
-	end
-
-
-	##  create a category
+		##  create a category
 	post '/categories' do
 		halt(401, 'not authorized') unless session[:admin]
 		@categories = Category.all
@@ -94,9 +101,7 @@ class Server < Sinatra::Base
 		redirect to("/categories")
 	end
 
-	get '/logout' do
-		
-	end
+
 
 
 	# get and display products in a list
@@ -150,14 +155,11 @@ class Server < Sinatra::Base
 
 	end #
 
-	post '/user/new' do
-		username = params[:username]
-		password = params[:password]
-		User.create({:username => username, :password => password})
 
-		erb :login, :layout => :home_layout
+	get '/logout' do
+		session[:admin] = false;
+		redirect to('/')
 	end
-
 
 
 

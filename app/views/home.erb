@@ -1,29 +1,15 @@
-<form method="post" action="/product/:name">
-	<input type="text" placeholder= "search for items..." name="item_name">
-	 <button class="search">Search</button>
 
-
-	 <div id="products">
-	 	<% if @products.any? %>
-	 		<table>
-				<thead>
-				    <tr>
-				      <th>Item</th>
-				      <th>Quantity</th>
-				      <th>Price</th>
-					</tr>
-				</thead>
-				<tbody>
-	 			<% @products.each do |product| %>
-				  
-				    <tr>
-				      <td><%=product.name%></td>
-				      <td><%=product.quantity%></td>
-				      <td><%=product.price%> Naira</td>
-				    </tr>
-				<% end %>
-				</tbody>
-			</table>
-	 	<%end%>
+	 <div id="categories">
+	 	<div class="category_box">
+	 		<a href="/categories/1/products"><img src="/images/fruits.jpg" width="346" height="246"></a>
+	 	</div>
+	 	<div  class="category_box">
+	 		<a href="/categories/3/products"><img src="/images/meats.jpg" width="346" height="246"></a>
+	 	</div>
+	 	<div  class="category_box">
+	 		<a href="/categories/4/products"><img src="/images/clothing.png" width="346" height="246"></a>
+	 	</div>
+	 	<div  class="category_box">
+	 		<a href="/categories/2/products"><img src="/images/mobiles.jpg" width="346" height="246"></a>
+	 	</div>
 	 </div>
-</form>
