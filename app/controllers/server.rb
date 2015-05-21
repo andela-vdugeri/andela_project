@@ -102,17 +102,6 @@ class Server < Sinatra::Base
 
 	end
 
-	# 	##  create a category
-	# post '/categories' do
-	# 	halt(401, 'not authorized') unless session[:admin]
-	# 	@categories = Category.all
-	# 	category = Category.new
-	# 	category.name = params[:category]
-	# 	category.save
-	# 	redirect to("/categories")
-	# end
-
-
 
 
 	# get and display products in a list
@@ -139,6 +128,7 @@ class Server < Sinatra::Base
 		sold = OrderItem.first(:item_name => item.item_name)
 		erb :cart, :locals =>{:sold => sold}
 	end
+	
 	## log user into a session
 	post '/login' do
 		@categories = Category.all
