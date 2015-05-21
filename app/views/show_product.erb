@@ -1,16 +1,15 @@
 <div id="category_products">
-	<table class="new_product">
-		<thead>
-		    <tr>
-		      <th>Item</th>
-		      <th>Quantity</th>
-		      <th>Price</th>
-			</tr>
-		</thead>
-		<tr>
-			<td><%=@product.name%></td>
-			<td><%=@product.quantity%></td>
-			<td><%=@product.price%></td>
-		</tr>
-	</table>
+	<ul class="products">
+		<% if @product %>
+				<li>
+					<a href="#" class="item">
+						<img src="/images/<%=@product.name%>.jpg" height="200" width="200"/>
+						<div>
+							<p><%=@product.name%></p>
+							<p>Price:$<%=@product.price%></p>
+						</div>
+					</a>
+				</li>
+		<% end %>
+	</ul>
 </div>

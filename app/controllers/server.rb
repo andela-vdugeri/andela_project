@@ -37,7 +37,7 @@ class Server < Sinatra::Base
 		halt(401, 'not authorized') unless session[:admin]
 		@product = Product.new
 		@categories = Category.all
-		erb :new_item
+		erb :new_item, :layout => :new_layout
 	end
 
 	get '/products'  do
@@ -57,13 +57,24 @@ class Server < Sinatra::Base
 
 	post '/products' do
 		halt(401, 'not authorized') unless session[:admin]
-		product = Product.new
-		product.name = params[:name]
-		product.price = params[:price]
-		product.quantity = params[:quantity]
-		product.category_id = params[:category_id]
-		product.save
-		redirect to("/products/#{product.id}")
+		@product = Product.new
+		@product.name = params[:name]
+		@product.price = params[:price]
+		@product.quantity = params[:quantity]
+		@product.category_id = params[:category_id]
+		filename = params['myfile'][:filename]
+		extension = File.extname(params['myfile'][:filename])
+		#puts extension
+		filename.replace params[:name]+extension
+		#puts Dir.getwd
+		path = File.join(Dir.getwd+'/app/public/images/', params['myfile'][:filename])
+		File.open(path, "wb") do |f|
+     		f.write(params['myfile'][:tempfile].read)
+  	 	end
+    	puts "file uploaded"
+
+		@product.save
+		redirect to("/products/#{@product.id}")
 	end
 
 
@@ -91,15 +102,15 @@ class Server < Sinatra::Base
 
 	end
 
-		##  create a category
-	post '/categories' do
-		halt(401, 'not authorized') unless session[:admin]
-		@categories = Category.all
-		category = Category.new
-		category.name = params[:category]
-		category.save
-		redirect to("/categories")
-	end
+	# 	##  create a category
+	# post '/categories' do
+	# 	halt(401, 'not authorized') unless session[:admin]
+	# 	@categories = Category.all
+	# 	category = Category.new
+	# 	category.name = params[:category]
+	# 	category.save
+	# 	redirect to("/categories")
+	# end
 
 
 
@@ -108,8 +119,8 @@ class Server < Sinatra::Base
 	get '/sales' do
 		halt(401, 'not authorized') unless session[:admin]
 		@categories = Category.all
-		@products = Product.all
-		erb :demo_cart, :layout => :demo_layout
+		products = Product.all
+		erb :demo_cart, :layout => :demo_layout, :locals => {:products => products}
 	end
 
 	get '/cart/product/:id' do
