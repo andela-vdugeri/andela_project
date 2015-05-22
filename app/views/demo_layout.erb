@@ -78,13 +78,12 @@
 
 				  $.ajax({
 					url: '/checkout',
-					async: false,
 					type: 'post',
 					dataType: 'json',
 					contentType: 'application/json',
 					data: JSON.stringify(data.rows),
 					success: function(response){
-						console.log(response);
+						$('#message').html('Your order has been processed.<br/> You can can now explore more.<br/>Thank you.')
 					},
 					error: function(jqXHR, textStatus, error){
 						console.log(jqXHR, textStatus, error);

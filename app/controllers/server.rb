@@ -7,6 +7,12 @@ class Server < Sinatra::Base
 		set :session_secret, 'This is supposed to be be very long and very hard to decipher, usuaully.'
 	end
 
+	['/checkout'].each do |path|
+		before path do
+			request.body.rewind
+			@payload = JSON.parse(request.body.read)
+		end
+	end
 
 	get '/' do
 		@categories = Category.all
@@ -156,13 +162,14 @@ class Server < Sinatra::Base
 		redirect to('/')
 	end
 
-	post '/checkout', :provides => :json do
-		request.body.rewind
-		payload = JSON.parse(request.body.read)
-		print payload
+	post '/checkout' do
+		@categories = Category.all
+		my_array = [];
+		  @payload
+		 puts @payload[1]
 	end
 	not_found do
-		"Boom"
+		erb :not_found, :layout => :home_layout
 	end
 
 	# start the server if ruby file executed directly
