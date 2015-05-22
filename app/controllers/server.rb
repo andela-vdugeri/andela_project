@@ -1,4 +1,5 @@
 require 'sinatra/base'
+require 'json'
 
 class Server < Sinatra::Base
 	configure do
@@ -150,20 +151,16 @@ class Server < Sinatra::Base
 		end
 	end
 
-
-	post '/cart' do
-		@categories = Category.all
-
-	end #
-
-
 	get '/logout' do
 		session[:admin] = false;
 		redirect to('/')
 	end
 
-
-
+	post '/checkout', :provides => :json do
+		request.body.rewind
+		payload = JSON.parse(request.body.read)
+		print payload
+	end
 	not_found do
 		"Boom"
 	end

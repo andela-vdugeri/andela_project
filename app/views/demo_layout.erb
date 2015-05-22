@@ -6,15 +6,19 @@
 	<meta name="description" content="easyui help you build your web page easily!">
 	<title>Cart</title>
 	<link rel="stylesheet" type="text/css" href="/cart_styles.css">
+	<link rel="stylesheet" type="text/css" href="/popup.css">
 	<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/default/easyui.css">
 	<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.1.min.js"></script>
 	<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+
 	<script>
-		var data = {"total":0,"rows":[]};
+		$(document).ready(function(){
+			var data = {"total":0,"rows":[]};
 		var totalCost = 0;
 		
 		$(function(){
+
 			$('#cartcontent').datagrid({
 				singleSelect:true
 			});
@@ -45,9 +49,11 @@
 		});
 		
 		function addProduct(name,price, action){
+
 			function add(){
 				for(var i=0; i<data.total; i++){
 					var row = data.rows[i];
+					//console.log(row);
 					if (row.name == name){
 						row.quantity += 1;
 						return;
@@ -58,13 +64,40 @@
 					name:name,
 					quantity:1,
 					price:price
+
+					
 				});
 			}
 			add();
 			totalCost += price;
 			$('#cartcontent').datagrid('loadData', data);
 			$('div.cart .total').html('Total: $'+totalCost);
+
+			$("#checkout").click(function(){
+
+
+				  $.ajax({
+					url: '/checkout',
+					async: false,
+					type: 'post',
+					dataType: 'json',
+					contentType: 'application/json',
+					data: JSON.stringify(data.rows),
+					success: function(response){
+						console.log(response);
+					},
+					error: function(jqXHR, textStatus, error){
+						console.log(jqXHR, textStatus, error);
+					}
+				});
+				console.log(data.rows);
+			});
 		}
+		$('#checkout').click(function(){
+			$('#details').dialog('open');
+		});
+})
+		
 	</script>
 </head>
 <body>
